@@ -1,11 +1,5 @@
 # Recipe to run prometheus container
 
-template '/etc/prometheus/prometheus.yml' do
-  source 'prometheus/prometheus.erb'
-  mode '0755'
-  notifies :run, 'execute[prometheus-restart]', :delayed
-end
-
 docker_image "prometheus" do
   repo 'prom/prometheus'
   tag 'v2.9.2'
@@ -30,4 +24,10 @@ end
 directory '/etc/prometheus' do
   mode '0755'
   action :create
+end
+
+template '/etc/prometheus/prometheus.yml' do
+  source 'prometheus/prometheus.erb'
+  mode '0755'
+  notifies :run, 'execute[prometheus-restart]', :delayed
 end

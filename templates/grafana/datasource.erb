@@ -1,0 +1,13 @@
+# config file version
+apiVersion: 1
+
+# list of datasources to insert/update depending
+# what's available in the database
+datasources:
+- name: 'Prometheus'
+  type: 'prometheus'
+  access: 'proxy'
+  orgId: 1
+  url: 'http://<%= node['ipaddress'] %>:9090'
+  is_default: true 
+  editable: true

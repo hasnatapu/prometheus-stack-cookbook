@@ -1,0 +1,29 @@
+---
+driver:
+  name: vagrant
+
+provisioner:
+  name: chef_solo
+
+verifier:
+  name: inspec
+
+platforms:
+  - name: centos-7
+
+suites:
+  - name: default
+    run_list:
+      - recipe[prometheus-stack-cookbook::docker]
+      - recipe[prometheus-stack-cookbook::prometheus]
+      - recipe[prometheus-stack-cookbook::grafana]
+      - recipe[prometheus-stack-cookbook::node_exporter]
+      - recipe[prometheus-stack-cookbook::cadvisor]
+    verifier:
+      inspec_tests:
+        - test/integration/docker
+        - test/integration/prometheus
+        - test/integration/node_exporter
+        - test/integration/cadvisor
+        - test/integration/grafana
+
